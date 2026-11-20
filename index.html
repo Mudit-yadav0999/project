@@ -1,0 +1,178 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kisan Sathi</title>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14301f;--leaf:#2f7d3b;--leaf2:#e6f2e0;--soil:#a8743a;--bg:#f7faf5;--card:#fff;--line:#dbe6d4;--bad:#b3261e}
+*{box-sizing:border-box}body{margin:0;font-family:Mukta,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px}
+nav{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:4px;padding:6px 12px;overflow-x:auto}
+nav button{background:none;border:0;font:inherit;color:var(--ink);cursor:pointer;padding:9px 14px;border-radius:12px;white-space:nowrap;transition:box-shadow .2s,background .2s}
+nav button:hover{background:var(--leaf2);box-shadow:0 0 18px rgba(120,200,90,.6)}
+nav button.on{background:var(--leaf2);font-weight:800;color:var(--leaf)}
+nav .brand{font-weight:800;font-size:22px;color:var(--leaf);padding:4px 12px 4px 4px;white-space:nowrap}
+nav select{width:auto;margin-left:auto;padding:6px 8px}
+main{padding:18px;margin:0 auto;max-width:980px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 14px}
+h1{margin:0 0 4px;font-size:28px}h2{margin:0 0 10px;font-size:20px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+button.p,label.p{background:var(--leaf);color:#fff;border:0;border-radius:14px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer;display:inline-block}
+button.s{background:var(--leaf2);color:var(--leaf);border:0;border-radius:14px;padding:10px 14px;font:inherit;cursor:pointer}
+button.d{background:none;border:1px solid var(--bad);color:var(--bad);border-radius:12px;padding:6px 10px;cursor:pointer;font:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--soil);outline-offset:2px}
+input,select,textarea{font:inherit;padding:10px;border:1px solid var(--line);border-radius:12px;width:100%;background:#fff}
+form{display:grid;gap:10px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+video,.pv img{width:100%;max-height:60vh;border-radius:16px;background:#000;object-fit:cover}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}.thumbs img{width:90px;height:90px;object-fit:cover;border-radius:12px}
+.msg{padding:12px;border-radius:12px;margin:10px 0;background:var(--leaf2)}.msg.err{background:#fde8e6;color:var(--bad)}
+.tag{background:var(--leaf2);border-radius:99px;padding:2px 10px;font-size:14px}.muted{color:#5d7466}
+ul{margin:6px 0;padding-left:20px}.done{text-decoration:line-through;opacity:.6}
+.big{font-size:44px;font-weight:800;line-height:1}
+
+.card,.hero{position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(150,225,100,.32),transparent 70%)}
+.card:hover::after{opacity:1}
+button.p,button.s,label.p{transition:box-shadow .2s,transform .2s}
+button.p:hover{box-shadow:0 0 24px rgba(80,190,70,.75);transform:translateY(-1px)}
+button.s:hover{box-shadow:0 0 16px rgba(80,190,70,.55)}
+.hero{background:linear-gradient(#d9eefa,#f1f9e9 75%);border:1px solid var(--line);border-radius:22px;margin-bottom:14px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;padding:18px 18px 0}
+.hero .t{padding-bottom:18px}.hero svg{width:min(380px,100%);height:auto;display:block}
+.tree{transform-box:fill-box;transform-origin:50% 100%;animation:grow 2.4s cubic-bezier(.2,.9,.3,1.15) both,sway 6s ease-in-out 2.4s infinite}
+.farmer{animation:bob 3s ease-in-out infinite}
+.hoe{transform-box:fill-box;transform-origin:50% 0;animation:dig 2.4s ease-in-out infinite}
+.sun{animation:glow 4s ease-in-out infinite}.leaf{animation:fall 7s linear infinite}
+@keyframes grow{from{transform:scale(.05)}to{transform:scale(1)}}
+@keyframes sway{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+@keyframes bob{50%{transform:translateY(-2px)}}@keyframes dig{50%{transform:rotate(-14deg)}}
+@keyframes glow{50%{opacity:.7;transform:scale(1.12)}}
+@keyframes fall{from{transform:translate(0,0) rotate(0)}to{transform:translate(-40px,90px) rotate(200deg)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+:root{color-scheme:light}
+input,select,textarea,option{color:var(--ink);background:#fff}
+input::placeholder,textarea::placeholder{color:#7a9084}
+input:hover,select:hover,textarea:hover{border-color:var(--leaf);box-shadow:0 0 12px rgba(80,190,70,.4)}
+.card{transition:box-shadow .25s,border-color .25s,transform .25s}
+.card:hover{border-color:#7fcf5f;box-shadow:0 0 0 1px #7fcf5f,0 10px 28px rgba(80,190,70,.3);transform:translateY(-2px)}
+.card::after{background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(130,225,90,.45),transparent 70%)}
+.hero:hover{box-shadow:0 10px 30px rgba(80,190,70,.3)}
+</style></head><body>
+<nav id="nav"><div class="brand">Kisan Sathi</div></nav><main id="app"></main>
+<script>
+const $=(s,r=document)=>r.querySelector(s), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pages={dashboard:"Home",scan:"Scan",history:"History",farm:"My Farm",calendar:"Tasks",water:"Water",weather:"Weather"};
+let LANG="en";try{LANG=localStorage.getItem("ks_lang")||"en"}catch{}
+const D={"Kisan Sathi":["किसान साथी","Kisan Sathi"],"Home":["होम","Home"],"Scan":["स्कैन","Scan"],"History":["इतिहास","History"],"My Farm":["मेरा खेत","Mera Khet"],"Tasks":["काम","Kaam"],"Water":["पानी","Paani"],"Weather":["मौसम","Mausam"],"Namaste, farmer":["नमस्ते, किसान भाई","Namaste, Kisan bhai"],"Scan my crop":["मेरी फसल स्कैन करें","Meri fasal scan karo"],"Check weather":["मौसम देखें","Mausam dekho"],"Calculate water":["पानी निकालें","Paani calculate karo"],"Add crop":["फसल जोड़ें","Fasal jodo"],"Scan your crop":["अपनी फसल स्कैन करें","Apni fasal scan karo"],"Open camera":["कैमरा खोलें","Camera kholo"],"Restart camera":["कैमरा फिर चालू करें","Camera restart karo"],"Take photo":["फोटो लें","Photo lo"],"Switch camera":["कैमरा बदलें","Camera badlo"],"Flashlight":["टॉर्च","Torch"],"Upload photos":["फोटो अपलोड करें","Photo upload karo"],"Analyze":["जाँचें","Jaanch karo"],"Retake":["दोबारा लें","Dobara lo"],"Delete":["हटाएं","Hatao"],"Edit":["बदलें","Badlo"],"Crop health history":["फसल स्वास्थ्य इतिहास","Fasal health history"],"My farm":["मेरा खेत","Mera khet"],"Save plot":["खेत सेव करें","Khet save karo"],"Clear":["साफ करें","Saaf karo"],"Farming tasks":["खेती के काम","Kheti ke kaam"],"Add task":["काम जोड़ें","Kaam jodo"],"Water calculator":["पानी कैलकुलेटर","Paani calculator"],"Calculate":["निकालें","Calculate karo"],"Get weather":["मौसम जानें","Mausam jaano"],"Farm":["खेत","Khet"],"Crop alerts":["फसल चेतावनी","Fasal alerts"],"Next tasks":["अगले काम","Agle kaam"],"Recent scans":["हाल के स्कैन","Haal ke scans"],"Farm advice":["खेती की सलाह","Kheti ki salah"],"7 days":["7 दिन","7 din"],"Planting date":["बुवाई की तारीख","Buwai ki tareeh"],"Search crop or problem":["फसल या समस्या खोजें","Fasal ya problem search karo"],"Plot name":["खेत का नाम","Khet ka naam"],"Crop (e.g. wheat)":["फसल (जैसे गेहूं)","Fasal (jaise gehun)"],"Variety":["किस्म","Kism"],"Area (acres)":["क्षेत्र (एकड़)","Area (acre)"],"Crop (optional)":["फसल (वैकल्पिक)","Fasal (optional)"],"Village or town, e.g. Ludhiana":["गाँव या शहर, जैसे लुधियाना","Gaon ya shehar, jaise Ludhiana"],"Average temperature °C":["औसत तापमान °C","Average temperature °C"],"Humidity %":["नमी %","Nami %"],"Rain expected this week (mm)":["इस हफ्ते बारिश (मिमी)","Is hafte barish (mm)"],"Task (e.g. Apply urea, inspect for pests)":["काम (जैसे यूरिया डालें, कीट जाँचें)","Kaam (jaise urea daalo, keet check karo)"]};
+function tr(){const k=LANG==="en"?-1:LANG==="hi"?0:1,w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+ while(n=w.nextNode()){if(n._o===undefined){const s=n.nodeValue.trim();if(D[s])n._o=s;else continue}n.nodeValue=k<0?n._o:D[n._o][k]}
+ document.querySelectorAll("[placeholder]").forEach(e=>{if(e._p===undefined&&D[e.placeholder])e._p=e.placeholder;if(e._p!==undefined)e.placeholder=k<0?e._p:D[e._p][k]})}
+document.addEventListener("pointermove",e=>{const c=e.target.closest&&e.target.closest(".card,button");if(c){const r=c.getBoundingClientRect();c.style.setProperty("--mx",e.clientX-r.left+"px");c.style.setProperty("--my",e.clientY-r.top+"px")}});
+const HERO=`<svg viewBox="0 0 360 200" role="img" aria-label="Farmer next to a growing tree"><circle class="sun" cx="40" cy="34" r="16" fill="#ffd54a" style="transform-box:fill-box;transform-origin:center"/>
+<path d="M0 175Q90 165 180 175T360 175V200H0Z" fill="#7fb26a"/><path d="M20 185H340M40 193H320" stroke="#639a54" stroke-width="2"/>
+<g class="tree"><rect x="264" y="108" width="12" height="70" rx="4" fill="#8a5a2b"/><circle cx="270" cy="92" r="34" fill="#2f7d3b"/><circle cx="243" cy="114" r="26" fill="#3a9145"/><circle cx="297" cy="114" r="26" fill="#3a9145"/><circle cx="262" cy="88" r="12" fill="#4aa856"/>
+<circle cx="250" cy="108" r="4" fill="#d9382c"/><circle cx="288" cy="100" r="4" fill="#d9382c"/><circle cx="272" cy="124" r="4" fill="#d9382c"/></g>
+<ellipse class="leaf" cx="245" cy="70" rx="5" ry="2.5" fill="#6bbf59"/>
+<g class="farmer"><rect x="99" y="150" width="9" height="26" fill="#c68a5a"/><rect x="114" y="150" width="9" height="26" fill="#c68a5a"/><path d="M94 138h34l4 20H90z" fill="#fff" stroke="#ddd"/>
+<rect x="95" y="104" width="32" height="40" rx="10" fill="#f2d9a0"/><circle cx="111" cy="92" r="12" fill="#c68a5a"/><ellipse cx="111" cy="83" rx="16" ry="9" fill="#e0662b"/><path d="M104 97q7 4 14 0" stroke="#3b2a1a" stroke-width="2" fill="none"/><circle cx="106" cy="91" r="1.5" fill="#222"/><circle cx="116" cy="91" r="1.5" fill="#222"/>
+<g class="hoe"><line x1="140" y1="104" x2="152" y2="176" stroke="#8a5a2b" stroke-width="4" stroke-linecap="round"/><path d="M146 172h18l-4 8h-14z" fill="#777"/><path d="M125 115L144 122" stroke="#c68a5a" stroke-width="7" stroke-linecap="round"/></g></g></svg>`;
+async function api(path,opt={}){let r;try{r=await fetch("/api"+path,opt)}catch{throw Error("Cannot reach the server. Is the backend running?")}
+ const j=await r.json().catch(()=>({}));if(!r.ok)throw Error(typeof j.detail==="string"?j.detail:"Please check the form values.");return j}
+const J=(m,b)=>({method:m,headers:{"Content-Type":"application/json"},body:JSON.stringify(b)});
+const note=(t,e)=>`<div class="msg ${e?"err":""}" role="${e?"alert":"status"}">${esc(t)}</div>`;
+const sevOf=x=>x||"unknown";
+function list(a){return a&&a.length?`<ul>${a.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:'<p class="muted">Nothing reported.</p>'}
+function nav(){$("#nav").innerHTML='<div class="brand">Kisan Sathi</div>'+Object.entries(pages).map(([k,v])=>`<button data-p="${k}">${v}</button>`).join("")+'<select id="lg" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="hl">Hinglish</option></select>';
+ $("#lg").value=LANG;$("#lg").onchange=e=>{LANG=e.target.value;try{localStorage.setItem("ks_lang",LANG)}catch{}tr()};
+ $("#nav").onclick=e=>{if(e.target.dataset.p)go(e.target.dataset.p)}}
+let cleanup=()=>{};
+function go(p){cleanup();cleanup=()=>{};location.hash=p;document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.p===p));R[p]($("#app"))}
+
+const R={};
+R.dashboard=async el=>{el.innerHTML=`<div class="hero"><div class="t"><h1>Namaste, farmer</h1><p class="muted">${new Date().toLocaleDateString(LANG==="hi"?"hi-IN":"en-IN",{dateStyle:"full"})}</p></div>${HERO}</div><div id="d">Loading…</div>`;
+ try{const[h,f,t,s]=await Promise.all([api("/health"),api("/farms"),api("/tasks"),api("/scans")]);
+ const open=t.filter(x=>!x.done).slice(0,4),bad=s.filter(x=>["medium","high"].includes(x.severity));
+ $("#d").innerHTML=`${h.ai_configured?"":note("AI is not configured yet: add AI_API_KEY to .env to enable crop scanning.",1)}
+ <div class="row"><button class="p" onclick="go('scan')">Scan my crop</button><button class="s" onclick="go('weather')">Check weather</button><button class="s" onclick="go('water')">Calculate water</button><button class="s" onclick="go('farm')">Add crop</button></div><br>
+ <div class="grid"><div class="card"><h2>Farm</h2><div class="big">${f.length}</div><p class="muted">plots, ${f.reduce((a,x)=>a+x.area_acres,0).toFixed(1)} acres total</p></div>
+ <div class="card"><h2>Crop alerts</h2><div class="big">${bad.length}</div><p class="muted">scans with medium or high severity</p></div>
+ <div class="card"><h2>Next tasks</h2>${open.length?open.map(x=>`<p>${esc(x.title)} <span class="tag">${x.due}</span></p>`).join(""):'<p class="muted">No open tasks. Add one in Tasks.</p>'}</div>
+ <div class="card"><h2>Recent scans</h2>${s.slice(0,3).map(x=>`<p>${esc(x.crop||"Plant")}: ${esc(x.problem)} <span class="tag">${sevOf(x.severity)}</span></p>`).join("")||'<p class="muted">No scans yet.</p>'}</div></div>`}
+ catch(e){$("#d").innerHTML=note(e.message,1)}};
+
+R.scan=el=>{let stream,devs=[],idx=0,imgs=[];
+ el.innerHTML=`<h1>Scan your crop</h1><div class="card"><p class="muted">Tips: one leaf fills the frame, daylight, no shadow, focus on the damaged part. Add a second photo of the whole plant if you can.</p>
+ <div id="cam"></div><div class="row"><button class="p" id="start">Open camera</button><button class="s" id="snap" hidden>Take photo</button><button class="s" id="flip" hidden>Switch camera</button><button class="s" id="torch" hidden>Flashlight</button><label class="s" style="padding:10px 14px;border-radius:14px;cursor:pointer">Upload photos<input id="file" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden></label></div><div id="cerr"></div></div>
+ <div class="card"><h2>Photos (<span id="n">0</span>/4)</h2><div class="thumbs" id="th"></div><br><textarea id="det" rows="2" placeholder="Anything else? e.g. spots appeared 3 days ago after rain"></textarea><br><br>
+ <div class="row"><select id="lang" style="width:auto"><option value="en">English</option><option value="hi">हिन्दी</option><option value="Hinglish">Hinglish</option></select><button class="p" id="go" disabled>Analyze</button></div></div><div id="res"></div>`;
+ const stop=()=>{stream&&stream.getTracks().forEach(t=>t.stop());stream=null};cleanup=stop;
+ const draw=()=>{$("#n").textContent=imgs.length;$("#go").disabled=!imgs.length;$("#th").innerHTML=imgs.map((f,i)=>`<div><img src="${URL.createObjectURL(f)}" alt="Photo ${i+1}"><br><button class="d" data-i="${i}">Retake</button></div>`).join("")};
+ $("#th").onclick=e=>{if(e.target.dataset.i!==undefined){imgs.splice(+e.target.dataset.i,1);draw();open()}};
+ const add=f=>{if(imgs.length>=4){$("#cerr").innerHTML=note("You can add up to 4 photos.",1);return}imgs.push(f);draw()};
+ async function open(){stop();$("#cerr").innerHTML="";
+  if(!navigator.mediaDevices?.getUserMedia){$("#cerr").innerHTML=note("This browser cannot open a camera (it needs https or localhost). Use Upload photos instead.",1);return}
+  try{stream=await navigator.mediaDevices.getUserMedia({video:devs[idx]?{deviceId:{exact:devs[idx].deviceId}}:{facingMode:{ideal:"environment"}},audio:false});
+   devs=(await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==="videoinput");
+   $("#cam").innerHTML='<video id="v" autoplay playsinline muted></video>';$("#v").srcObject=stream;
+   $("#snap").hidden=false;$("#flip").hidden=devs.length<2;$("#start").textContent="Restart camera";
+   const caps=stream.getVideoTracks()[0].getCapabilities?.();$("#torch").hidden=!(caps&&caps.torch)}
+  catch(e){$("#cerr").innerHTML=note(e.name==="NotAllowedError"?"Camera permission was denied. Allow camera access in your browser settings, or use Upload photos.":e.name==="NotFoundError"?"No camera found on this device. Use Upload photos.":"Camera could not start: "+e.message,1)}}
+ $("#start").onclick=open;
+ $("#flip").onclick=()=>{idx=(idx+1)%devs.length;open()};
+ let on=false;$("#torch").onclick=async()=>{on=!on;try{await stream.getVideoTracks()[0].applyConstraints({advanced:[{torch:on}]})}catch{$("#cerr").innerHTML=note("Flashlight is not supported here.",1)}};
+ $("#snap").onclick=()=>{const v=$("#v"),c=document.createElement("canvas");c.width=v.videoWidth;c.height=v.videoHeight;c.getContext("2d").drawImage(v,0,0);
+  c.toBlob(b=>add(new File([b],"capture.jpg",{type:"image/jpeg"})),"image/jpeg",.9)};
+ $("#file").onchange=e=>{[...e.target.files].forEach(add);e.target.value=""};
+ $("#go").onclick=async()=>{$("#go").disabled=true;$("#res").innerHTML=note("Analyzing your photos. This can take up to a minute…");
+  const fd=new FormData();imgs.forEach(f=>fd.append("files",f));fd.append("lang",$("#lang").value);fd.append("details",$("#det").value);
+  try{const s=await api("/scans",{method:"POST",body:fd});$("#res").innerHTML=result(s)}catch(e){$("#res").innerHTML=note(e.message,1)}$("#go").disabled=false}};
+function result(s){const r=s.result;
+ if(!r.diagnosable)return `<div class="card"><h2>We could not diagnose this photo</h2><p>${esc(r.next_action)}</p><p class="muted">${esc(r.confidence_note)}</p></div>`;
+ return `<div class="card"><h2>${esc(r.problem)}</h2><p><span class="tag">${esc(r.crop)}</span> <span class="tag">${esc(r.category)}</span> <span class="tag">severity: ${esc(r.severity)}</span></p><p class="muted">${esc(r.confidence_note)}</p>
+ <h3>Symptoms seen</h3>${list(r.symptoms)}<h3>Probable cause</h3><p>${esc(r.cause)}</p><h3>Risks</h3><p>${esc(r.risks)}</p><h3>Do this now</h3>${list(r.immediate)}
+ <h3>Treatment</h3>${list(r.treatment)}<h3>Organic options</h3>${list(r.organic)}<h3>Chemical guidance</h3><p>${esc(r.chemical)}</p><h3>Prevention</h3>${list(r.prevention)}<h3>Recovery</h3><p>${esc(r.recovery)}</p><h3>Precautions</h3>${list(r.precautions)}<p class="muted">Saved to History. Confirm chemical use with your local Krishi Vigyan Kendra and the product label.</p></div>`}
+
+R.history=async el=>{el.innerHTML=`<h1>Crop health history</h1><input id="q" placeholder="Search crop or problem"><br><br><div id="l"></div>`;
+ const load=async()=>{try{const s=await api("/scans?q="+encodeURIComponent($("#q").value));
+  $("#l").innerHTML=s.length?s.map(x=>`<div class="card"><div class="row"><img src="${x.image.startsWith('data:')?x.image:'/uploads/'+x.image}" width="80" height="80" style="object-fit:cover;border-radius:12px" alt=""><div style="flex:1"><b>${esc(x.crop||"Plant")}: ${esc(x.problem)}</b><br><span class="muted">${new Date(x.created+"Z").toLocaleString("en-IN")} · severity ${sevOf(x.severity)}</span></div>
+  <button class="s" data-f="${x.id}" data-v="${!x.favorite}">${x.favorite?"★ Saved":"☆ Save"}</button><button class="d" data-d="${x.id}">Delete</button></div>
+  <textarea data-n="${x.id}" rows="2" placeholder="Notes (treatment given, follow-up date)">${esc(x.notes)}</textarea></div>`).join(""):'<p class="muted">No scans found.</p>'}catch(e){$("#l").innerHTML=note(e.message,1)}};
+ $("#q").oninput=load;
+ el.onclick=async e=>{const t=e.target;try{
+  if(t.dataset.d&&confirm("Delete this scan?")){await api("/scans/"+t.dataset.d,{method:"DELETE"});load()}
+  if(t.dataset.f){await api(`/scans/${t.dataset.f}?favorite=${t.dataset.v}`,{method:"PATCH"});load()}}catch(x){alert(x.message)}};
+ el.onchange=async e=>{if(e.target.dataset.n)try{await api(`/scans/${e.target.dataset.n}?notes=`+encodeURIComponent(e.target.value),{method:"PATCH"})}catch(x){alert(x.message)}};
+ load()};
+
+R.farm=async el=>{el.innerHTML=`<h1>My farm</h1><div class="card"><form id="f"><input type="hidden" name="id"><input name="name" placeholder="Plot name" required><input name="crop" placeholder="Crop (e.g. wheat)" required><input name="variety" placeholder="Variety">
+ <input name="area_acres" type="number" step="0.01" min="0.01" placeholder="Area (acres)" required><select name="soil"><option value="">Soil type</option><option>Alluvial</option><option>Black</option><option>Red</option><option>Sandy</option><option>Loamy</option></select>
+ <select name="irrigation"><option value="">Irrigation</option><option>drip</option><option>sprinkler</option><option>flood</option></select><label>Planting date<input name="planted_on" type="date"></label>
+ <select name="stage"><option>sowing</option><option>vegetative</option><option>flowering</option><option>fruiting</option><option>harvest</option></select><textarea name="notes" rows="2" placeholder="Observations, fertilizer and pesticide used"></textarea>
+ <div class="row"><button class="p">Save plot</button><button type="reset" class="s">Clear</button></div></form><div id="e"></div></div><div id="l"></div>`;
+ let data=[];const load=async()=>{try{data=await api("/farms");$("#l").innerHTML=data.map(x=>`<div class="card"><b>${esc(x.name)}</b>: ${esc(x.crop)} ${esc(x.variety)} · ${x.area_acres} acres<br><span class="muted">${esc(x.soil)} ${esc(x.irrigation)} · planted ${esc(x.planted_on)||"–"} · stage ${esc(x.stage)}</span><p>${esc(x.notes)}</p>
+  <button class="s" data-e="${x.id}">Edit</button> <button class="d" data-d="${x.id}">Delete</button></div>`).join("")||'<p class="muted">No plots yet. Add your first one above.</p>'}catch(e){$("#l").innerHTML=note(e.message,1)}};
+ $("#f").onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(e.target)),id=o.id;delete o.id;o.area_acres=parseFloat(o.area_acres);
+  try{await api("/farms"+(id?"/"+id:""),J(id?"PUT":"POST",o));e.target.reset();$("#e").innerHTML=note("Saved.");load()}catch(x){$("#e").innerHTML=note(x.message,1)}};
+ el.onclick=async e=>{const t=e.target;if(t.dataset.e){const x=data.find(d=>d.id==t.dataset.e);for(const[k,v]of Object.entries(x)){const i=$(`[name=${k}]`);if(i)i.value=v}scrollTo(0,0)}
+  if(t.dataset.d&&confirm("Delete this plot?")){await api("/farms/"+t.dataset.d,{method:"DELETE"});load()}};load()};
+
+R.calendar=async el=>{el.innerHTML=`<h1>Farming tasks</h1><div class="card"><form id="f"><input name="title" placeholder="Task (e.g. Apply urea, inspect for pests)" required><input name="crop" placeholder="Crop (optional)"><input name="due" type="date" required><button class="p">Add task</button></form><div id="e"></div></div><div id="l"></div>`;
+ $("#f").querySelector("[name=due]").value=new Date().toISOString().slice(0,10);
+ const load=async()=>{try{const t=await api("/tasks");$("#l").innerHTML=t.map(x=>`<div class="card row"><input type="checkbox" style="width:24px" data-c="${x.id}" ${x.done?"checked":""} aria-label="Done"><span style="flex:1" class="${x.done?"done":""}">${esc(x.title)} <span class="tag">${x.due}</span> ${x.crop?`<span class="tag">${esc(x.crop)}</span>`:""}</span><button class="d" data-d="${x.id}">Delete</button></div>`).join("")||'<p class="muted">No tasks yet.</p>';window._t=t}catch(e){$("#l").innerHTML=note(e.message,1)}};
+ $("#f").onsubmit=async e=>{e.preventDefault();try{await api("/tasks",J("POST",Object.fromEntries(new FormData(e.target))));e.target.title.value="";$("#e").innerHTML="";load()}catch(x){$("#e").innerHTML=note(x.message,1)}};
+ el.onclick=async e=>{const t=e.target;try{if(t.dataset.d&&confirm("Delete this task?")){await api("/tasks/"+t.dataset.d,{method:"DELETE"});load()}}catch(x){alert(x.message)}};
+ el.onchange=async e=>{if(e.target.dataset.c){const x=_t.find(i=>i.id==e.target.dataset.c);await api("/tasks/"+x.id,J("PUT",{title:x.title,due:x.due,crop:x.crop,done:e.target.checked}));load()}};load()};
+
+R.water=el=>{el.innerHTML=`<h1>Water calculator</h1><div class="card"><form id="f"><select name="crop">${["wheat","rice","maize","cotton","tomato","potato","sugarcane"].map(c=>`<option>${c}</option>`).join("")}</select>
+ <input name="area_acres" type="number" step="0.01" min="0.01" placeholder="Area (acres)" required><input name="temp_c" type="number" step="0.1" placeholder="Average temperature °C" required><input name="humidity" type="number" min="0" max="100" placeholder="Humidity %" required>
+ <input name="rain_mm_week" type="number" min="0" placeholder="Rain expected this week (mm)" value="0"><select name="stage"><option>initial</option><option>development</option><option>mid</option><option>late</option></select>
+ <select name="irrigation"><option>drip</option><option>sprinkler</option><option>flood</option></select><button class="p">Calculate</button></form></div><div id="r"></div>`;
+ $("#f").onsubmit=async e=>{e.preventDefault();const o=Object.fromEntries(new FormData(e.target));["area_acres","temp_c","humidity","rain_mm_week"].forEach(k=>o[k]=parseFloat(o[k]));
+  try{const r=await api("/water",J("POST",o));$("#r").innerHTML=`<div class="card"><div class="big">${r.daily_litres.toLocaleString("en-IN")} L/day</div><p>${r.weekly_litres.toLocaleString("en-IN")} litres per week for ${o.area_acres} acres</p><p class="muted">Crop use ${r.crop_mm_day} mm/day. Method: ${esc(r.method)}. This is an estimate: adjust after checking soil moisture.</p>${list(r.tips)}</div>`}catch(x){$("#r").innerHTML=note(x.message,1)}}};
+
+R.weather=el=>{el.innerHTML=`<h1>Weather</h1><form id="f" class="row"><input name="place" placeholder="Village or town, e.g. Ludhiana" required style="flex:1"><button class="p">Get weather</button></form><div id="r"></div>`;
+ $("#f").onsubmit=async e=>{e.preventDefault();$("#r").innerHTML=note("Loading…");try{const w=await api("/weather?place="+encodeURIComponent(e.target.place.value)),c=w.current,d=w.daily;
+  $("#r").innerHTML=`<div class="card"><h2>${esc(w.place)}</h2><div class="big">${c.temperature_2m}°C</div><p>Humidity ${c.relative_humidity_2m}% · Wind ${c.wind_speed_10m} km/h · Rain now ${c.precipitation} mm</p></div>
+  <div class="card"><h2>Farm advice</h2>${w.advice.length?list(w.advice):'<p>No weather warnings for the next 3 days.</p>'}</div>
+  <div class="card"><h2>7 days</h2>${d.time.map((t,i)=>`<p>${new Date(t).toLocaleDateString("en-IN",{weekday:"short",day:"numeric"})}: ${d.temperature_2m_min[i]}° to ${d.temperature_2m_max[i]}° · rain ${d.precipitation_sum[i]} mm</p>`).join("")}</div><p class="muted">Data: Open-Meteo.</p>`}catch(x){$("#r").innerHTML=note(x.message,1)}}};
+
+nav();new MutationObserver(tr).observe(document.body,{childList:true,subtree:true});go(Object.keys(pages).includes(location.hash.slice(1))?location.hash.slice(1):"dashboard");
+</script></body></html>
